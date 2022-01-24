@@ -1,33 +1,31 @@
 const router = require('express').Router()
 
 const { Blog } = require('../models')
+const { blogFinder } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
   const blogs = await Blog.findAll()
-  // console.log(JSON.stringify(blogs, null, 2));
   res.json(blogs)
 })
 
 router.post('/', async (req, res) => {
-  try {
-    const blog = await Blog.create(req.body)
-    // console.log(JSON.stringify(blog, null, 2));
-    res.send(blog)
-  } catch(err) {
-    console.log(err);
-    res.status(400).json({ err })
-  }
+  const blog = await Blog.create(req.body)
+  res.send(blog)
 })
 
-router.delete('/:id', async (req, res) => {
-  const blog = await Blog.findByPk(req.params.id)
-  if (blog) {
-    await blog.destroy()
-    // console.log(JSON.stringify(blog, null, 2))
-    res.status(204).json(blog)
-  } else {
-    res.status(404).end()
-  }
+router.delete('/:id', blogFinder, async (req, res) => {
+  await req.blog.destroy()
+  res.status(204).end()
+})
+
+router.put('/:id', blogFinder, async (req, res) => {
+  const likes = req.body.likes
+  if (likes === 0) {} // Number 0 is falsy which we sidestep here
+  else if (!likes || typeof likes !== 'number' || likes % 1 !== 0  || likes < 0 ) throw Error("Malformatted likes") // throw synchronous error caught by express
+  // https://sequelize.org/master/manual/model-instances.html#updating-an-instance
+  await req.blog.update({ likes }) // update fields specified in req.body
+  await req.blog.save() // save the update
+  res.send(req.blog)
 })
 
 module.exports = router
