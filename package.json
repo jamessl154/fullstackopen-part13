@@ -11,6 +11,7 @@
   "author": "jamessl154",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cross-env": "^7.0.3",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",

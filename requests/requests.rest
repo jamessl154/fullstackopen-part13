@@ -1,7 +1,5 @@
 GET http://localhost:3001/api/blogs
-
 ###
-
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
@@ -10,13 +8,9 @@ Content-Type: application/json
   "url": "testUrl2",
   "title": "testTitle2"
 }
-
 ###
-
 DELETE http://localhost:3001/api/blogs/8
-
 ###
-
 PUT http://localhost:3001/api/blogs/2
 Content-Type: application/json
 
@@ -25,4 +19,22 @@ Content-Type: application/json
   "url": "newUrl",
   "title": "newTitle",
   "likes": 3
+}
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "otherusername",
+  "password": "otherpass",
+  "name": "othername"
+}
+###
+GET http://localhost:3001/api/users
+###
+PUT http://localhost:3001/api/users/newusername
+Content-Type: application/json
+
+{
+  "username": "otherusername"
 }
