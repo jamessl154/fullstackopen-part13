@@ -9,16 +9,13 @@ Content-Type: application/json
   "title": "testTitle2"
 }
 ###
-DELETE http://localhost:3001/api/blogs/8
+DELETE http://localhost:3001/api/blogs/12
 ###
 PUT http://localhost:3001/api/blogs/2
 Content-Type: application/json
 
 {
-  "author": "fakeAuthor",
-  "url": "newUrl",
-  "title": "newTitle",
-  "likes": 3
+  "likes": 2
 }
 ###
 POST http://localhost:3001/api/users
