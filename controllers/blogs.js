@@ -21,7 +21,9 @@ router.post('/', tokenExtractor, async (req, res) => {
   res.send(blog)
 })
 
-router.delete('/:id', blogFinder, async (req, res) => {
+router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
+  const userAddedThisBlog = req.decodedToken.id === req.blog.userId
+  if (!userAddedThisBlog) throw Error('You cannot delete blogs you did not add')
   await req.blog.destroy()
   res.status(204).end()
 })

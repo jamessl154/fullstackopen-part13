@@ -16,6 +16,8 @@ const errorHandler = (err, req, res, next) => {
       return res.status(404).send({ error: err.message })
     case 'Invalid username or password':
       return res.status(401).send({ error: err.message })
+    case 'You cannot delete blogs you did not add':
+      return res.status(401).send({ error: err.message })
     default:
       break
   }
