@@ -1,4 +1,4 @@
-const { Blog } = require('../models')
+const { Blog, User } = require('../models')
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id)
@@ -9,6 +9,16 @@ const blogFinder = async (req, res, next) => {
   }
 }
 
+const userFinder = async (req, res, next) => {
+  req.user = await User.findByPk(req.params.id)
+  if (!req.user) {
+    throw Error("User not found")
+  } else {
+    next()
+  }
+}
+
 module.exports = {
-  blogFinder
+  blogFinder,
+  userFinder
 }

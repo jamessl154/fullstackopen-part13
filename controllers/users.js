@@ -2,6 +2,7 @@ const router = require('express').Router()
 const bcrypt = require('bcrypt')
 
 const User = require('../models/user')
+const { userFinder } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
   const users = await User.findAll()
@@ -24,6 +25,11 @@ router.put('/:username', async (req, res) => {
   user.username = req.body.username
   const newUser = await user.save()
   res.send(newUser)
+})
+
+router.delete('/:id', userFinder, async (req, res) => {
+  await req.user.destroy()
+  res.status(204).end()
 })
 
 module.exports = router
