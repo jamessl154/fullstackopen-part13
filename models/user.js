@@ -13,7 +13,10 @@ User.init({
   username: {
     type: DataTypes.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: { // https://sequelize.org/master/manual/validations-and-constraints.html
+      isEmail: true
+    }
   },
   name: {
     type: DataTypes.STRING,

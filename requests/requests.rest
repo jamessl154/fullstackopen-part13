@@ -22,18 +22,18 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "otherusername",
-  "password": "otherpass",
-  "name": "othername"
+  "username": "email@username.test",
+  "password": "abcdefg",
+  "name": "abcdefg"
 }
 ###
 GET http://localhost:3001/api/users
 ###
-PUT http://localhost:3001/api/users/A username
+PUT http://localhost:3001/api/users/B username
 Content-Type: application/json
 
 {
-  "username": "A username"
+  "username": "A@username.validation"
 }
 ###
-DELETE http://localhost:3001/api/users/10
+DELETE http://localhost:3001/api/users/4
