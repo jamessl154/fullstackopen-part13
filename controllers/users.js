@@ -1,11 +1,16 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 
-const User = require('../models/user')
+const { Blog, User } = require('../models')
 const { userFinder } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
-  const users = await User.findAll()
+  const users = await User.findAll({
+    include: {
+      model: Blog,
+      attributes: { exclude: ['userId'] }
+    }
+  })
   res.json(users)
 })
 

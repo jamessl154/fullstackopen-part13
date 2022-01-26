@@ -5,9 +5,9 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVtYWlsQHVzZXJuYW1lLnRlc3QiLCJpZCI6NSwiaWF0IjoxNjQzMjAxNzUxfQ.Bszjqic9kLvOLQaVVXZHaS5Oxm9ntOXhuT7nqelL9MM
 
 {
-  "author": "addedbyuserauthor",
-  "url": "addedbyuserurl",
-  "title": "addedbyusertitle"
+  "author": "testAuthor",
+  "url": "testUrl",
+  "title": "testTitle"
 }
 ###
 DELETE http://localhost:3001/api/blogs/12
