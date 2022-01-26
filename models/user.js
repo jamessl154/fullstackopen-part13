@@ -14,7 +14,7 @@ User.init({
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
-    validate: { // https://sequelize.org/master/manual/validations-and-constraints.html
+    validate: { // username must be an email https://sequelize.org/master/manual/validations-and-constraints.html
       isEmail: true
     }
   },
@@ -27,16 +27,21 @@ User.init({
     allowNull: false
   },
 }, {
-  hooks: { // https://stackoverflow.com/a/64914671
-    afterCreate: (record) => { // https://sequelize.org/master/manual/hooks.html
+  hooks: {
+    afterCreate: (record) => {
       delete record.dataValues.passwordHash
-    }, // remove passwordHash from model, it still exists in the DB
+    }, // remove passwordHash from the model, it still exists in the DB https://sequelize.org/master/manual/hooks.html https://stackoverflow.com/a/64914671
     afterUpdate: (record) => {
       delete record.dataValues.passwordHash;
     },
-  }, // https://stackoverflow.com/a/47021460
-  defaultScope: { // https://sequelize.org/master/manual/scopes.html
-    attributes: { exclude: ['passwordHash'] } // by default do not expose passwordHash
+  },
+  defaultScope: {
+    attributes: { exclude: ['passwordHash'] } // by default do not expose passwordHash https://sequelize.org/master/manual/scopes.html https://stackoverflow.com/a/47021460
+  },
+  scopes: {
+    withPasswordHash: {
+      // include passwordHash when this scope is specified https://stackoverflow.com/a/48357983
+    }
   },
   sequelize,
   underscored: true,

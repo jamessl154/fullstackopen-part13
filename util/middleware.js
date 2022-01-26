@@ -1,4 +1,7 @@
+const jwt = require('jsonwebtoken');
+
 const { Blog, User } = require('../models')
+const { SECRET } = require('./config')
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id)
@@ -18,7 +21,22 @@ const userFinder = async (req, res, next) => {
   }
 }
 
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    try {
+      req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
+    } catch {
+      throw Error('Token is invalid')
+    }
+  } else {
+    throw Error('Token is missing')
+  }
+  next()
+}
+
 module.exports = {
   blogFinder,
-  userFinder
+  userFinder,
+  tokenExtractor
 }
