@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
   if(!(user && passwordCorrect)) { // check: 1. user exists, 2. bcrypt compare matches passwordHash
     throw Error('Invalid username or password')
   }
-  const userForToken = { username: user.username, id: user._id }
+  const userForToken = { username: user.username, id: user.id }
   const token = jwt.sign(userForToken, SECRET) // sign a token
   res.send({ token, username: user.username, name: user.name }) // return it to the client
 })
