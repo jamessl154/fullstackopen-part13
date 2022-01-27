@@ -1,23 +1,32 @@
 const router = require('express').Router()
+const { Op } = require('sequelize')
 
 const { Blog, User } = require('../models')
-const { sequelize } = require('../util/db')
 const { blogFinder, tokenExtractor } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
-  // [Op.iLike]: ILIKE %hat case-insensitive https://sequelize.org/master/manual/model-querying-basics.html#operators
-  // [Op.substring]: LIKE %hat%
-  // We want: ILIKE %hat% case-insensitive
-  let queryStringParameters = ''
+  let where = {}
+
   if (req.query.search) {
-    queryStringParameters = ` WHERE blogs.title ILIKE '%${req.query.search}%' OR blogs.author ILIKE '%${req.query.search}%' `
+    where = {
+      [Op.or]: [ // [Op.iLike] case-insensitive https://sequelize.org/master/manual/model-querying-basics.html#operators
+        { title: { [Op.iLike]: '%react%' } },
+        { author: { [Op.iLike]: '%react%' } }
+      ]
+    }
   }
-  const blogs = await sequelize.query(`
-  SELECT blogs.id, blogs.author, blogs.url, blogs.title, blogs.likes, users.username AS user_username, users.name AS user_name
-  FROM blogs LEFT OUTER JOIN users ON (blogs.user_id = users.id)
-  ${queryStringParameters}
-  ORDER BY blogs.likes DESC;`) // https://www.postgresql.org/docs/8.3/tutorial-join.html
-  res.send(blogs[0])
+
+  const blogs = await Blog.findAll({
+    attributes: { exclude: ['userId'] },
+    include: {
+      model: User,
+      attributes: ['username', 'name']
+    },
+    order: [['likes', 'DESC']],
+    where
+  })
+
+  res.send(blogs)
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
