@@ -49,3 +49,5 @@ Content-Type: application/json
 }
 ### test query string parameters
 GET http://localhost:3001/api/blogs?search=react
+###
+GET http://localhost:3001/api/authors
