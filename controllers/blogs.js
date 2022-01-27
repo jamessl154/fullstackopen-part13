@@ -11,12 +11,13 @@ router.get('/', async (req, res) => {
   // We want: ILIKE %hat% case-insensitive
   let queryStringParameters = ''
   if (req.query.search) {
-    queryStringParameters = ` WHERE blogs.title ILIKE '%${req.query.search}%' OR blogs.author ILIKE '%${req.query.search}%'`
+    queryStringParameters = ` WHERE blogs.title ILIKE '%${req.query.search}%' OR blogs.author ILIKE '%${req.query.search}%' `
   }
   const blogs = await sequelize.query(`
   SELECT blogs.id, blogs.author, blogs.url, blogs.title, blogs.likes, users.username AS user_username, users.name AS user_name
   FROM blogs LEFT OUTER JOIN users ON (blogs.user_id = users.id)
-  ${queryStringParameters};`) // https://www.postgresql.org/docs/8.3/tutorial-join.html
+  ${queryStringParameters}
+  ORDER BY blogs.likes DESC;`) // https://www.postgresql.org/docs/8.3/tutorial-join.html
   res.send(blogs[0])
 })
 
