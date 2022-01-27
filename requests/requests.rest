@@ -7,7 +7,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvY
 {
   "author": "can",
   "url": "he",
-  "title": "fix it"
+  "title": "fix react"
 }
 ###
 DELETE http://localhost:3001/api/blogs/15
@@ -31,7 +31,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3001/api/users
 ###
-PUT http://localhost:3001/api/users/B username
+PUT http://localhost:3001/api/users/username
 Content-Type: application/json
 
 {
@@ -47,3 +47,5 @@ Content-Type: application/json
   "username": "bob@the.builder",
   "password": "abcdefg"
 }
+### test query string parameters
+GET http://localhost:3001/api/blogs?search=react

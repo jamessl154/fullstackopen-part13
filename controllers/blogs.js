@@ -1,17 +1,23 @@
 const router = require('express').Router()
+const { Op } = require('sequelize')
 
 const { Blog, User } = require('../models')
+const { sequelize } = require('../util/db')
 const { blogFinder, tokenExtractor } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
-  const blogs = await Blog.findAll({
-    attributes: { exclude: ['userId'] },
-    include: {
-      model: User,
-      attributes: ['username', 'name']
-    }
-  })
-  res.json(blogs)
+  // [Op.iLike]: ILIKE %hat case-insensitive https://sequelize.org/master/manual/model-querying-basics.html#operators
+  // [Op.substring]: LIKE %hat%
+  // We want: ILIKE %hat% case-insensitive
+  let queryStringParameters = ''
+  if (req.query.search) {
+    queryStringParameters = ` WHERE blogs.title ILIKE '%${req.query.search}%'`
+  }
+  const blogs = await sequelize.query(`
+  SELECT blogs.id, blogs.author, blogs.url, blogs.title, blogs.likes, users.username, users.name
+  FROM blogs LEFT OUTER JOIN users ON (blogs.user_id = users.id)
+  ${queryStringParameters};`) // https://www.postgresql.org/docs/8.3/tutorial-join.html
+  res.send(blogs[0])
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
@@ -32,7 +38,7 @@ router.put('/:id', blogFinder, async (req, res) => {
   const likes = req.body.likes
   if (likes === 0) {} // Number 0 is falsy which we sidestep here
   else if (!likes || typeof likes !== 'number' || likes % 1 !== 0  || likes < 0 ) throw Error("Malformatted likes") // throw synchronous error caught by express
-  await req.blog.update({ likes }) // update fields specified in req.body // https://sequelize.org/master/manual/model-instances.html#updating-an-instance
+  await req.blog.update({ likes }) // update fields specified in req.body https://sequelize.org/master/manual/model-instances.html#updating-an-instance
   await req.blog.save() // save the update
   res.send(req.blog)
 })
