@@ -27,7 +27,7 @@ Blog.init({
 }, {
   sequelize,
   underscored: true, // snake case 2 word
-  timestamps: false,
+  timestamps: true,
   modelName: 'blog'
 })
 
