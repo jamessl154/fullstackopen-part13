@@ -2,22 +2,23 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjo2LCJpYXQiOjE2NDMyMTk2NDF9.Z8A_i7XG3MVnwUCfddepNrmiLvuIsBZevzneiH_xMxo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDMzNzM5NzR9.CyQuiAlS19w3BFGCwF1d9AItKYwZzAzqUDs_qD0kz74
 
 {
   "author": "can",
   "url": "he",
-  "title": "fix react"
+  "title": "fix react",
+  "year": "2000"
 }
 ###
 DELETE http://localhost:3001/api/blogs/15
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVtYWlsQHVzZXJuYW1lLnRlc3QiLCJpZCI6NSwiaWF0IjoxNjQzMjAxNzUxfQ.Bszjqic9kLvOLQaVVXZHaS5Oxm9ntOXhuT7nqelL9MM
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDMzNjgwMjF9.Et0JyoRAu_pOB_tj_RgJYxjSjvkQwVkDusJj0WJYrkQ
 ###
-PUT http://localhost:3001/api/blogs/2
+PUT http://localhost:3001/api/blogs/3
 Content-Type: application/json
 
 {
-  "likes": 2
+  "likes": 1
 }
 ###
 POST http://localhost:3001/api/users

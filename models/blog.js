@@ -23,6 +23,19 @@ Blog.init({
   likes: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  year: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    validate: {
+      isInYearRange(value) {
+        const yearInput = (new Date(value)).getFullYear()
+        if (!yearInput) throw Error('Invalid year') // NaN
+        if (yearInput < 1991 || yearInput > (new Date).getFullYear()) {
+          throw Error('Year must be between 1991 and this year')
+        }
+      }
+    }
   }
 }, {
   sequelize,
