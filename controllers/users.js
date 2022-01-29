@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
         model: Blog,
         as: 'reading_list',
         attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
-        through: { attributes: [] }, // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
+        through: { attributes: ['read', 'id'] }, // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
       },
       {
         model: Blog,
