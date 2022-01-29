@@ -18,6 +18,10 @@ const errorHandler = (err, req, res, next) => {
       return res.status(401).send({ error: err.message })
     case 'You cannot delete blogs you did not add':
       return res.status(401).send({ error: err.message })
+    case 'You must add the blog to your reading list before you can change the read status of it':
+      return res.status(401).send({ error: err.message })
+    case 'Malformatted request object':
+      return res.status(400).send({ error: err.message })
     default:
       break
   }

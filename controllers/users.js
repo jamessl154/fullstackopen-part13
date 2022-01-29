@@ -20,13 +20,13 @@ router.get('/:id', async (req, res) => {
     include: [
       {
         model: Blog,
-        as: 'reading_list',
-        attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
-        through: { attributes: ['read', 'id'] }, // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
+        attributes: { exclude: ['userId'] }
       },
       {
         model: Blog,
-        attributes: { exclude: ['userId'] }
+        as: 'reading_list',
+        attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
+        through: { attributes: ['read', 'id'] }, // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
       }
     ]
   })
