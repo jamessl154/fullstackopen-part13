@@ -15,8 +15,22 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const userId = req.params.id
-  // TODO
+  const user = await User.findByPk(req.params.id, {
+    attributes: ['username', 'name'],
+    include: [
+      {
+        model: Blog,
+        as: 'reading_list',
+        attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
+        through: { attributes: [] }, // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
+      },
+      {
+        model: Blog,
+        attributes: { exclude: ['userId'] }
+      }
+    ]
+  })
+  res.send(user)
 })
 
 router.post('/', async (req, res) => {
