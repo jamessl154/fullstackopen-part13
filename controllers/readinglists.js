@@ -1,8 +1,11 @@
 const router = require('express').Router()
 
-router.post('/', (req, res) => {
+const { UserBlogs } = require('../models')
+
+router.post('/', async (req, res) => {
   const { blogId, userId } = req.body
-  // TODO
+  const userBlogConnection = await UserBlogs.create({ blogId, userId })
+  res.send(userBlogConnection)
 })
 
 module.exports = router
