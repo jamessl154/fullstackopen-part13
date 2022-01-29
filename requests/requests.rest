@@ -57,7 +57,7 @@ POST http://localhost:3001/api/readinglists
 Content-Type: application/json
 
 {
-  "blogId": "2",
+  "blogId": "1",
   "userId": "2"
 }
 ###
@@ -70,3 +70,5 @@ Content-Type: application/json
 {
   "read": true
 }
+### test query string parameters
+GET http://localhost:3001/api/users/2?read=false

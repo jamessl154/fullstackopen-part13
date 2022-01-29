@@ -15,6 +15,10 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
+  const where = {}
+  if (req.query.read) {
+    where.read = req.query.read === "true"
+  }
   const user = await User.findByPk(req.params.id, {
     attributes: ['username', 'name'],
     include: [
@@ -26,7 +30,10 @@ router.get('/:id', async (req, res) => {
         model: Blog,
         as: 'reading_list',
         attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
-        through: { attributes: ['read', 'id'] }, // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
+        through: { // https://sequelize.org/master/manual/advanced-many-to-many.html#specifying-attributes-from-the-through-table
+          attributes: ['read', 'id'],
+          where
+        },
       }
     ]
   })
