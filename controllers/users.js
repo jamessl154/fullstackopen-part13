@@ -14,6 +14,11 @@ router.get('/', async (req, res) => {
   res.json(users)
 })
 
+router.get('/:id', async (req, res) => {
+  const userId = req.params.id
+  // TODO
+})
+
 router.post('/', async (req, res) => {
   const { username, password, name } = req.body
   const saltRounds = 10 // https://github.com/kelektiv/node.bcrypt.js/#usage
