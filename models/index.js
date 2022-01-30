@@ -1,6 +1,7 @@
 const Blog = require('./blog')
 const User = require('./user')
 const UserBlogs = require('./user_blogs')
+const Session = require('./session')
 
 User.hasMany(Blog) // one-to-many relationship
 Blog.belongsTo(User)
@@ -8,6 +9,8 @@ Blog.belongsTo(User)
 // many-to-many relationships
 User.belongsToMany(Blog, { through: UserBlogs, as: 'reading_list' /* blogs this user has in their reading list */ }) 
 Blog.belongsToMany(User, { through: UserBlogs, as: 'users_reading' /* users who have this blog in their reading list */ })
+
+User.hasOne(Session) // one-to-one relationship, foreign key stored in target (Session)
 
 module.exports = {
   Blog, User, UserBlogs
