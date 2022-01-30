@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', tokenExtractor, async (req, res) => {
   const { read } = req.body
-  if (typeof read !== 'boolean') throw Error('Malformatted request object')
+  if (typeof read !== 'boolean') throw Error('Malformed request object')
   const readingListBlog = await UserBlogs.findOne({
     where: { [Op.and]: [
       { user_id: req.decodedToken.id },

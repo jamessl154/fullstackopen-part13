@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  console.error(err.message)
+  console.error(err.name + ': ' + err.message)
 
   switch (err.message) {
     case 'Blog not found':
@@ -20,14 +20,19 @@ const errorHandler = (err, req, res, next) => {
       return res.status(401).send({ error: err.message })
     case 'You must add the blog to your reading list before you can change the read status of it':
       return res.status(401).send({ error: err.message })
-    case 'Malformatted request object':
+    case 'Malformed request object':
       return res.status(400).send({ error: err.message })
     default:
       break
   }
 
-  if (err.name.includes('Sequelize')) {
-    return res.status(400).send({ error: err.errors[0].message })
+  switch (err.name) {
+    case 'SequelizeValidationError':
+      return res.status(400).send({ error: err.errors[0].message })
+    case 'SequelizeDatabaseError':
+      return res.status(400).send({ error: err.message })
+    default:
+      break
   }
 
   next(err) // pass forward unhandled errors to the default Express error handler

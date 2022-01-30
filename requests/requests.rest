@@ -58,7 +58,7 @@ Content-Type: application/json
 
 {
   "blogId": "1",
-  "userId": "2"
+  "userId": "a"
 }
 ###
 GET http://localhost:3001/api/users/2
