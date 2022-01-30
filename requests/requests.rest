@@ -25,7 +25,7 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "test@the.builder",
+  "username": "bob@the.builder",
   "password": "abcdefg",
   "name": "abcdefg"
 }
@@ -45,7 +45,7 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-  "username": "test@the.builder",
+  "username": "bob@the.builder",
   "password": "abcdefg"
 }
 ### test query string parameters

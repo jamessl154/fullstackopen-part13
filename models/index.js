@@ -13,7 +13,7 @@ Blog.belongsToMany(User, { through: UserBlogs, as: 'users_reading' /* users who 
 User.hasOne(Session) // one-to-one relationship, foreign key stored in target (Session)
 
 module.exports = {
-  Blog, User, UserBlogs
+  Blog, User, UserBlogs, Session
 }
 
 /**

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
 const { SECRET } = require('../util/config')
-const User = require('../models/user')
+const { User, Session } = require('../models')
 
 router.post('/', async (req, res) => {
   const { password, username } = req.body
@@ -19,7 +19,8 @@ router.post('/', async (req, res) => {
   }
   const userForToken = { username: user.username, id: user.id }
   const token = jwt.sign(userForToken, SECRET) // sign a token
-  res.send({ token, username: user.username, name: user.name }) // return it to the client
+  const session = await Session.create({ userId: user.id }) // create session
+  res.send({ token, username: user.username, name: user.name, session }) // return token to the client
 })
 
 module.exports = router
