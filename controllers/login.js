@@ -17,10 +17,11 @@ router.post('/', async (req, res) => {
   if(!(user && passwordCorrect)) { // check: 1. user exists, 2. bcrypt compare matches passwordHash
     throw Error('Invalid username or password')
   }
+  const session = await user.getSession() // find this user's session. Special instance method https://sequelize.org/master/manual/assocs.html#special-methods-mixins-added-to-instances
   const userForToken = { username: user.username, id: user.id }
   const token = jwt.sign(userForToken, SECRET) // sign a token
-  const session = await Session.create({ userId: user.id }) // create session
-  res.send({ token, username: user.username, name: user.name, session }) // return token to the client
+  if (!session) await user.createSession({ userId: user.id }) // create session if not exists
+  res.send({ token, username: user.username, name: user.name }) // return token to the client
 })
 
 module.exports = router
