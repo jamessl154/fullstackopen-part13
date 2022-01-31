@@ -12,8 +12,4 @@ router.delete('/', tokenExtractor, async (req, res) => {
   res.status(204).end()
 })
 
-// app.delete('/:username', isAdmin, (req, res) => {
-//   TODO admin can remove sessions
-// })
-
 module.exports = router

@@ -45,8 +45,15 @@ const tokenExtractor = async (req, res, next) => {
   next()
 }
 
+const isAdmin = async (req, res, next) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  if (!user.admin) throw Error('You must be an admin to do this operation')
+  next()
+}
+
 module.exports = {
   blogFinder,
   userFinder,
-  tokenExtractor
+  tokenExtractor,
+  isAdmin
 }

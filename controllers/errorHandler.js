@@ -26,6 +26,8 @@ const errorHandler = (err, req, res, next) => {
       return res.status(401).send({ error: err.message })
     case 'This account has been disabled, please contact an admin':
       return res.status(401).send({ error: err.message })
+    case 'You must be an admin to do this operation':
+      return res.status(401).json({ error: err.message })
     default:
       break
   }

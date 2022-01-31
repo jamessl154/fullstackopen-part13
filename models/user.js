@@ -30,7 +30,12 @@ User.init({
     type: DataTypes.BOOLEAN,
     defaultValue: false,
     allowNull: false
-  }
+  },
+  admin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
 }, {
   hooks: {
     afterCreate: (record) => {

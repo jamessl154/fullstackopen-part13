@@ -2,7 +2,7 @@ const router = require('express').Router()
 const bcrypt = require('bcrypt')
 
 const { Blog, User } = require('../models')
-const { userFinder } = require('../util/middleware')
+const { userFinder, tokenExtractor, isAdmin } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
   const users = await User.findAll({
@@ -47,6 +47,10 @@ router.post('/', async (req, res) => {
   const user = { username, name, passwordHash }
   const savedUser = await User.create(user)
   res.send(savedUser)
+})
+
+router.put('/disable/:username', tokenExtractor, isAdmin, async (req, res) => {
+  // TODO admin can invalidate token (remove sessions)
 })
 
 router.put('/:username', async (req, res) => {
