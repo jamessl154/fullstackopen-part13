@@ -2,7 +2,7 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2MzA1NTN9.sWyKS8ZpZ_CWJCTWnbCo1_HzSccHZZv--GrPi4SPYek
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAdGhlLmJ1aWxkZXIiLCJpZCI6MiwiaWF0IjoxNjQzNjM3NzE0fQ.N4xTbZlPvBIBDdZ_Nzj3lDxvfDG4jSwCo_x-EdP1K-o
 
 {
   "author": "can",
@@ -45,7 +45,7 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-  "username": "bob@the.builder",
+  "username": "test@the.builder",
   "password": "abcdefg"
 }
 ### test query string parameters
@@ -75,3 +75,11 @@ GET http://localhost:3001/api/users/2?read=false
 ###
 DELETE http://localhost:3001/api/logout
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2MzA1NTN9.sWyKS8ZpZ_CWJCTWnbCo1_HzSccHZZv--GrPi4SPYek
+###
+PUT http://localhost:3001/api/users/disable/test@the.builder
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2Mzc2NDV9.l_b_lfRb15NPSXHK-6DAsbEAxgf2u2V6xwUwvxAP_Tc
+Content-Type: application/json
+
+{
+  "disabled": false
+}
