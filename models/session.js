@@ -10,6 +10,10 @@ Session.init({
     primaryKey: true,
     autoIncrement: true
   },
+  token: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 }, {
   sequelize,
   underscored: true,

@@ -17,10 +17,11 @@ router.post('/', async (req, res) => {
   if(!(user && passwordCorrect)) { // check: 1. user exists, 2. bcrypt compare matches passwordHash
     throw Error('Invalid username or password')
   }
-  const session = await user.getSession() // find this user's session. Special instance method https://sequelize.org/master/manual/assocs.html#special-methods-mixins-added-to-instances
+  if (user.disabled) throw Error('This account has been disabled, please contact an admin') // prevent disabled users logging in to get a new session and new token
   const userForToken = { username: user.username, id: user.id }
   const token = jwt.sign(userForToken, SECRET) // sign a token
-  if (!session) await user.createSession({ userId: user.id }) // create session if not exists
+  await Session.destroy({ where: { userId: user.id } }); // invalidate all previous tokens
+  await user.createSession({ token, userId: user.id }) // create session, instance method https://sequelize.org/master/manual/assocs.html#special-methods-mixins-added-to-instances
   res.send({ token, username: user.username, name: user.name }) // return token to the client
 })
 

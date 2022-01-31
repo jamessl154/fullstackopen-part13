@@ -2,7 +2,7 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoyLCJpYXQiOjE2NDM2MTAzMDR9.N32I6Y2WWMnncqi1a5rvW8bz6sOcb0GHGsvM4xzAjMU
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2MzA1NTN9.sWyKS8ZpZ_CWJCTWnbCo1_HzSccHZZv--GrPi4SPYek
 
 {
   "author": "can",
@@ -11,8 +11,8 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvY
   "year": "2000"
 }
 ###
-DELETE http://localhost:3001/api/blogs/15
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDMzNjgwMjF9.Et0JyoRAu_pOB_tj_RgJYxjSjvkQwVkDusJj0WJYrkQ
+DELETE http://localhost:3001/api/blogs/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2MzA1NTN9.sWyKS8ZpZ_CWJCTWnbCo1_HzSccHZZv--GrPi4SPYek
 ###
 PUT http://localhost:3001/api/blogs/3
 Content-Type: application/json
@@ -64,7 +64,7 @@ Content-Type: application/json
 GET http://localhost:3001/api/users/2
 ###
 PUT http://localhost:3001/api/readinglists/2
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAdGhlLmJ1aWxkZXIiLCJpZCI6MiwiaWF0IjoxNjQzNDY4ODk0fQ.-tLYWq8kJ0J4faz1H9dvfYQGfa5wJrQl31QXUO19Xr8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2MzA1NTN9.sWyKS8ZpZ_CWJCTWnbCo1_HzSccHZZv--GrPi4SPYek
 Content-Type: application/json
 
 {
@@ -72,3 +72,6 @@ Content-Type: application/json
 }
 ### test query string parameters
 GET http://localhost:3001/api/users/2?read=false
+###
+DELETE http://localhost:3001/api/logout
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYkB0aGUuYnVpbGRlciIsImlkIjoxLCJpYXQiOjE2NDM2MzA1NTN9.sWyKS8ZpZ_CWJCTWnbCo1_HzSccHZZv--GrPi4SPYek
