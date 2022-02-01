@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 
-const { Blog, User, Session } = require('../models')
+const { Blog, User, Session, Team } = require('../models')
 const { userFinder, tokenExtractor, isAdmin } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
@@ -34,6 +34,11 @@ router.get('/:id', async (req, res) => {
           attributes: ['read', 'id'],
           where
         },
+      },
+      {
+        model: Team,
+        attributes: ['name'],
+        through: { attributes: [] }
       }
     ]
   })
