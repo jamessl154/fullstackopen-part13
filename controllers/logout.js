@@ -9,7 +9,7 @@ const { tokenExtractor } = require('../util/middleware')
  */
 router.delete('/', tokenExtractor, async (req, res) => {
   await Session.destroy({ where: { userId: req.decodedToken.id } }); // user removes all of their sessions (invalidates all of their tokens)
-  res.status(204).end()
+  res.send({ message: "logout successful" })
 })
 
 module.exports = router

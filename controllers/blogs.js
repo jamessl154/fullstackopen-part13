@@ -10,8 +10,8 @@ router.get('/', async (req, res) => {
   if (req.query.search) {
     where = {
       [Op.or]: [ // [Op.iLike] case-insensitive https://sequelize.org/master/manual/model-querying-basics.html#operators
-        { title: { [Op.iLike]: '%react%' } },
-        { author: { [Op.iLike]: '%react%' } }
+        { title: { [Op.iLike]: `%${req.query.search}%` } },
+        { author: { [Op.iLike]: `%${req.query.search}%` } }
       ]
     }
   }
